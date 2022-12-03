@@ -1,0 +1,50 @@
+<ng-container *ngIf="displayBtn; else formTemplate">
+  <button pButton
+    class="p-fluid w-full" 
+    label="Добавить новую поездку"
+    type="button"
+    (click)="displayBtn = false;">
+  </button>
+</ng-container>
+
+<ng-template #formTemplate>
+  <p-card>
+    <div class="flex flex-row flex-wrap gap-4" [formGroup]="form">
+      <div class="group">
+        <span class="item p-float-label p-fluid">
+          <input id="name" type="text" pInputText formControlName="name">
+          <label for="name" class="required">Как назовем?</label>
+        </span>
+      
+        <span class="item p-float-label p-fluid">
+          <p-calendar id="start-date"
+            formControlName="startDate"
+            dateFormat="dd.mm.yy"
+          ></p-calendar>
+          <label for="start-date" class="required">Когда начнем?</label>
+        </span>
+      </div>
+  
+      <div class="group">
+        <span class="item p-float-label p-fluid">
+          <p-calendar id="end-date"
+            formControlName="endDate"
+            dateFormat="dd.mm.yy"
+          ></p-calendar>
+          <label for="end-date" class="required">Когда вернемся?</label>
+        </span>
+      
+        <button pButton
+          class="item p-button-outlined p-fluid" 
+          icon="pi pi-plus"
+          [disabled]="!form.valid"
+          type="button"
+          (click)="add()">
+        </button>
+      </div>  
+    </div>
+    <div class="errors" *ngIf="form.errors">
+      <small>{{ form.errors['tooManyDaysAtOnce'] }}</small>
+    </div>
+  </p-card>
+</ng-template>

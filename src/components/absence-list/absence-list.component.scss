@@ -1,0 +1,21 @@
+.absence-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    &_part {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex: 1;
+        flex-basis: 350px;
+        flex-wrap: wrap;
+
+        .item {
+            flex: 1;
+            flex-basis: 150px;
+        }
+
+    }
+}

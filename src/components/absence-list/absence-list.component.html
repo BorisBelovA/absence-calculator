@@ -1,0 +1,48 @@
+<ng-container *ngFor="let absence of absences">
+  <p-fieldset styleClass="mb-3" [legend]="absence.name" [toggleable]="true">
+    <div class="absence-row">
+
+      <div class="absence-row_part">
+        <span class="item p-float-label p-fluid">
+          <input id="start-date"
+            type="text"
+            pInputText
+            [disabled]="true"
+            [ngModel]="absence.startDate | date : 'dd.MM.yyyy'" />
+          <label for="start-date">Дата отъезда</label>
+        </span>
+  
+        <span class="item p-float-label p-fluid">
+          <input id="end-date"
+            type="text"
+            pInputText
+            [disabled]="true"
+            [ngModel]="absence.endDate | date : 'dd.MM.yyyy'" />
+          <label for="end-date">Дата прибытия</label>
+        </span>
+      </div>
+
+      <div class="absence-row_part">
+        <ng-container *ngTemplateOutlet="counter; context: {
+          $implicit: [absence.startDate, absence.endDate] | countDays
+        }"></ng-container>
+        
+        <button pButton
+          class="item p-button-outlined p-button-danger p-fluid"
+          icon="pi pi-trash"
+          type="button"
+          (click)="delete(absence)"
+        ></button>
+      </div>
+    
+
+    </div>
+  </p-fieldset>
+</ng-container>
+
+<ng-template #counter let-days>
+  <div class="item flex flex-column justify-content-center align-items-center">
+    <span class="text-center">Количество дней в отъезде</span>
+    <p-knob [ngModel]="days" [max]="90" [readonly]="true"></p-knob>
+  </div>
+</ng-template>
